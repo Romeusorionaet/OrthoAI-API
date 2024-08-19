@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "target": "es2022",
+      "module": "commonjs",
+      "baseUrl": "./",
+      "sourceMap": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
+      "incremental": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": false,
+      "strict": true,
+      "skipLibCheck": true,
+      "paths": {
+        "@/*": [".src/*"]
+      },
+      "outDir": "./dist",
+      "typeRoots": ["./node_modules/@types", "./src/types"]
+    }
+  }
+  

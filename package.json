@@ -1,0 +1,49 @@
+{
+  "name": "orthoraiapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "nest build",
+    "start:dev": "nest start --watch",
+    "start": "nest start",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix"
+  },
+  "author": "romeu soares",
+  "license": "ISC",
+  "dependencies": {
+    "@ai-sdk/openai": "0.0.48",
+    "@fastify/cors": "9.0.1",
+    "@fastify/multipart": "6.0.0",
+    "@nestjs/common": "10.4.1",
+    "@nestjs/config": "3.2.3",
+    "@nestjs/platform-express": "10.4.1",
+    "ai": "3.3.9",
+    "dotenv": "16.4.5",
+    "fastify": "^4.28.1",
+    "fastify-multipart": "5.4.0",
+    "mammoth": "1.8.0",
+    "multer": "1.4.5-lts.1",
+    "nodemailer": "6.9.14",
+    "openai": "4.55.7",
+    "orthoraiapi": "file:",
+    "pdf-parse": "1.1.1",
+    "tesseract.js": "5.1.0",
+    "tsup": "8.2.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "10.4.1",
+    "@rocketseat/eslint-config": "2.1.0",
+    "@types/config": "3.3.4",
+    "@types/express": "4.17.21",
+    "@types/fastify-multipart": "0.7.0",
+    "@types/multer": "1.4.11",
+    "@types/node": "^22.3.0",
+    "@types/nodemailer": "6.4.15",
+    "@types/pdf-parse": "1.1.4",
+    "eslint": "8.56.0",
+    "typescript": "5.3.3"
+  }
+}
