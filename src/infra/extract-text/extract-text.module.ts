@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { ExtractText } from "src/domain/essay-corrector/application/extract-text/extract-text";
 import { ExtractTextFromFile } from "./extract-text-from-file";
+import { ExtractText } from "@/domain/essay-corrector/application/extract-text/extract-text";
 
 @Module({
   providers: [{ provide: ExtractText, useClass: ExtractTextFromFile }],

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Either, right } from "src/core/either";
+import { Either, right } from "@/core/either";
 import { DocumentContent } from "../../enterprise/entities/document-content";
 import { DocumentContentRepository } from "../repositories/document-content-repository";
 
