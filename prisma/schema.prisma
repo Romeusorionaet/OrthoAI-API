@@ -7,24 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Redaction {
-  id            String   @id @unique @default(uuid())
-  old_redaction String   @db.Text
-  new_redaction String   @db.Text
-  roles         String   @db.Text
-  createdAt     DateTime @default(now()) @map("created_at")
+model DocumentContent {
+  id                String   @id @unique @default(uuid())
+  original_document String   @db.Text
+  new_document      String?  @db.Text
+  roles             String   @db.Text
+  createdAt         DateTime @default(now()) @map("created_at")
 
   quiz_questions QuizQuestions[]
 
-  @@map("redactions")
+  @@map("document_content")
 }
 
 model QuizQuestions {
   id   String @id @unique @default(uuid())
   quiz String @db.Text
 
-  redaction_id String
-  redaction    Redaction @relation(fields: [redaction_id], references: [id])
+  document_content_id String
+  document_content    DocumentContent @relation(fields: [document_content_id], references: [id])
 
   @@map("quiz_questions")
 }
