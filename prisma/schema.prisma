@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Redaction {
+  id            String   @id @unique @default(uuid())
+  old_redaction String   @db.Text
+  new_redaction String   @db.Text
+  roles         String   @db.Text
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  quiz_questions QuizQuestions[]
+
+  @@map("redactions")
+}
+
+model QuizQuestions {
+  id   String @id @unique @default(uuid())
+  quiz String @db.Text
+
+  redaction_id String
+  redaction    Redaction @relation(fields: [redaction_id], references: [id])
+
+  @@map("quiz_questions")
+}
