@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Controller,
-  FileTypeValidator,
   MaxFileSizeValidator,
   ParseFilePipe,
   Post,
@@ -9,7 +8,7 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { ExtractText } from "src/domain/essay-orrector/application/extract-text/extract-text";
+import { ExtractText } from "src/domain/essay-corrector/application/extract-text/extract-text";
 import { OpenAIService } from "src/infra/services/open-ai";
 
 @Controller("/upload-file")
@@ -26,12 +25,22 @@ export class UploadController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 2 }), // 2mb
-          new FileTypeValidator({ fileType: ".(pdf|jpg|jpeg|docx)" }),
         ],
       }),
     )
     file: Express.Multer.File,
   ): Promise<{ correctedText: string | null; originalText: string }> {
+    const allowedMimeTypes = [
+      "application/pdf",
+      "image/jpeg",
+      "image/jpg",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+      throw new BadRequestException("Tipo de arquivo não permitido.");
+    }
+
     if (!file) {
       throw new BadRequestException("Nenhum arquivo foi enviado.");
     }
@@ -56,6 +65,8 @@ export class UploadController {
       extractedText =
         await this.extractText.extractTextFromJPEGOrJPG(fileBuffer);
     }
+
+    console.log(extractedText, "======extracted text");
 
     if (!extractedText) {
       throw new BadRequestException();
@@ -110,25 +121,25 @@ export class UploadController {
   [Aqui vai a verificação das questões, indicando se as respostas estão corretas]
 `;
 
-    const chatResponse = await this.openaiService.createCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content:
-            "Você é um assistente útil e especializado em correção de redações",
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-    });
+    // const chatResponse = await this.openaiService.createCompletion({
+    //   model: "gpt-3.5-turbo",
+    //   messages: [
+    //     {
+    //       role: "system",
+    //       content:
+    //         "Você é um assistente útil e especializado em correção de redações",
+    //     },
+    //     {
+    //       role: "user",
+    //       content: prompt,
+    //     },
+    //   ],
+    // });
 
-    const correctedText = chatResponse.choices[0].message.content;
+    // const correctedText = chatResponse.choices[0].message.content;
 
     return {
-      correctedText,
+      correctedText: "test",
       originalText: extractedText,
     };
   }

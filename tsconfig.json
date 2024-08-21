@@ -9,15 +9,15 @@
       "allowSyntheticDefaultImports": true,
       "incremental": true,
       "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
+      "forceConsistentCasingInFileNames": false,
       "noFallthroughCasesInSwitch": false,
       "strict": true,
       "skipLibCheck": true,
       "paths": {
         "@/*": [".src/*"]
       },
-      "outDir": "./dist",
-      "typeRoots": ["./node_modules/@types", "./src/types"]
+      "typeRoots": ["./node_modules/@types", "./src/types", "vitest/globals"],
+      "outDir": "./dist"
     }
   }
   
