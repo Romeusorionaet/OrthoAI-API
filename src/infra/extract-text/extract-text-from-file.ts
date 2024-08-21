@@ -1,7 +1,7 @@
 import pdfParse from "pdf-parse";
 import Tesseract from "tesseract.js";
 import mammoth from "mammoth";
-import { ExtractText } from "src/domain/essay-orrector/application/extract-text/extract-text";
+import { ExtractText } from "src/domain/essay-corrector/application/extract-text/extract-text";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()

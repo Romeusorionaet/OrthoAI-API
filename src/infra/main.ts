@@ -10,6 +10,12 @@ async function bootstrap() {
   const envService = app.get<ConfigService<Env, true>>(EnvService);
   const port = envService.get("PORT");
 
+  app.enableCors({
+    origin: envService.get("WEB_HOST"),
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  });
+
   await app.listen(port);
 }
 
