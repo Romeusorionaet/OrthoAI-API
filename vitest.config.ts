@@ -10,10 +10,6 @@ export default defineConfig(async () => {
     test: {
       globals: true,
       root: "./",
-      environment: "node",
-    },
-    resolve: {
-      conditions: ["import", "module", "node"],
     },
     plugins: [
       tsConfigPaths(),

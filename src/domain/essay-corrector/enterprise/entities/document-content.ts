@@ -5,7 +5,7 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 export interface DocumentContentProps {
   originalDocument: string;
   newDocument?: string;
-  roles: string;
+  roles?: string;
   createdAt: Date | null;
 }
 
