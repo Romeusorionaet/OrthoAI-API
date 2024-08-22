@@ -49,7 +49,6 @@ export class ExtractContentFromFile
         data: { text },
       } = await Tesseract.recognize(preprocessedImage, "eng+por");
 
-      console.log(text, "==");
       return text;
     } catch (error) {
       console.error("Error extracting text from image:", error);

@@ -5,7 +5,7 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 export interface DocumentContentProps {
   originalDocument: string;
   newDocument?: string;
-  roles?: string;
+  rules?: string;
   createdAt: Date | null;
 }
 
@@ -18,8 +18,8 @@ export class DocumentContent extends Entity<DocumentContentProps> {
     return this.props.newDocument;
   }
 
-  get roles() {
-    return this.props.roles;
+  get rules() {
+    return this.props.rules;
   }
 
   get createdAt() {
@@ -36,5 +36,15 @@ export class DocumentContent extends Entity<DocumentContentProps> {
     );
 
     return documentContent;
+  }
+
+  update(props: Partial<DocumentContentProps>): DocumentContent {
+    return new DocumentContent(
+      {
+        ...this.props,
+        ...props,
+      },
+      this.id,
+    );
   }
 }
