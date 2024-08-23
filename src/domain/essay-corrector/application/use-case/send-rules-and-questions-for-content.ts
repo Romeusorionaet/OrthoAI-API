@@ -3,6 +3,9 @@ import { Either, left, right } from "@/core/either";
 import { DocumentContentRepository } from "../repositories/document-content-repository";
 import { DocumentNotFoundError } from "./errors/document-not-found-error";
 import { TextGenerationServiceRepository } from "../text-generation-service/text-generation-service-repository";
+import { CompletionNotPossibleError } from "./errors/completion-not-possible-error";
+import { QuizQuestionRepository } from "../repositories/quiz-question-repository";
+import { QuizQuestion } from "../../enterprise/entities/quiz-questions";
 
 interface SendRulesAndQuestionsForContentUseCaseRequest {
   id: string;
@@ -11,7 +14,7 @@ interface SendRulesAndQuestionsForContentUseCaseRequest {
 }
 
 type SendRulesAndQuestionsForContentUseCaseResponse = Either<
-  DocumentNotFoundError,
+  DocumentNotFoundError | CompletionNotPossibleError,
   object
 >;
 
@@ -20,6 +23,7 @@ export class SendRulesAndQuestionsForContentUseCase {
   constructor(
     private documentContentRepository: DocumentContentRepository,
     private textGenerationServiceRepository: TextGenerationServiceRepository,
+    private quizQuestionRepository: QuizQuestionRepository,
   ) {}
 
   async execute({
@@ -40,11 +44,8 @@ export class SendRulesAndQuestionsForContentUseCase {
         questions,
       });
 
-    console.log(resultCompletion, "====resultCompletion====");
-
     if (!resultCompletion) {
-      // TODO create a error for this situation
-      return left(new DocumentNotFoundError());
+      return left(new CompletionNotPossibleError());
     }
 
     const updatedDocument = documentContent.update({
@@ -53,7 +54,13 @@ export class SendRulesAndQuestionsForContentUseCase {
       evaluation: resultCompletion.evaluation,
     });
 
+    const quizQuestion = QuizQuestion.create({
+      documentContentId: updatedDocument.id.toString(),
+      quiz: resultCompletion.questionVerification,
+    });
+
     await this.documentContentRepository.update(updatedDocument);
+    await this.quizQuestionRepository.create(quizQuestion);
 
     return right({});
   }

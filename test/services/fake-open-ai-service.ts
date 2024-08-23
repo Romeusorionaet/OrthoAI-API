@@ -8,7 +8,8 @@ export class FakeOpenAIService implements TextGenerationServiceRepository {
     const resultTest = {
       correctedContent: "Conteúdo corrigido: Lorem...",
       evaluation: "4",
-      questionVerification: "question-01, question-02, question-03",
+      questionVerification:
+        "['question-01: response-01' , 'question-02: response-02', 'question-03: response-03']",
     };
 
     return resultTest;

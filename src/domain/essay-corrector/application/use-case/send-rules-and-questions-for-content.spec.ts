@@ -3,9 +3,11 @@ import { SendRulesAndQuestionsForContentUseCase } from "./send-rules-and-questio
 import { makeDocumentContent } from "test/factories/make-document-content";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { FakeOpenAIService } from "test/services/fake-open-ai-service";
+import { InMemoryQuizQuestionRepository } from "test/repositories/in-memory-quiz-question-repository";
 
 let inMemoryDocumentContentRepository: InMemoryDocumentContentRepository;
 let fakeOpenAIService: FakeOpenAIService;
+let inMemoryQuizQuestionRepository: InMemoryQuizQuestionRepository;
 let sut: SendRulesAndQuestionsForContentUseCase;
 
 describe("Send rules and questions for content", () => {
@@ -14,9 +16,12 @@ describe("Send rules and questions for content", () => {
 
     fakeOpenAIService = new FakeOpenAIService();
 
+    inMemoryQuizQuestionRepository = new InMemoryQuizQuestionRepository();
+
     sut = new SendRulesAndQuestionsForContentUseCase(
       inMemoryDocumentContentRepository,
       fakeOpenAIService,
+      inMemoryQuizQuestionRepository,
     );
   });
 
@@ -40,11 +45,19 @@ describe("Send rules and questions for content", () => {
 
     expect(result.isRight()).toBe(true);
     expect(inMemoryDocumentContentRepository.items).toHaveLength(1);
+
     expect(inMemoryDocumentContentRepository.items[0]).toEqual(
       expect.objectContaining({
         id: new UniqueEntityID("document-01"),
         rules: expect.stringContaining("rule-01,rule-02,rule-03"),
         newDocument: expect.stringContaining(String()),
+      }),
+    );
+
+    expect(inMemoryQuizQuestionRepository.items[0]).toEqual(
+      expect.objectContaining({
+        documentContentId: documentContent.id.toString(),
+        quiz: expect.stringContaining(String()),
       }),
     );
   });
