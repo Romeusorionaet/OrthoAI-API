@@ -1,3 +1,4 @@
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { DocumentContentRepository } from "@/domain/essay-corrector/application/repositories/document-content-repository";
 import { DocumentContent } from "@/domain/essay-corrector/enterprise/entities/document-content";
 
@@ -6,10 +7,12 @@ export class InMemoryDocumentContentRepository
 {
   public items: DocumentContent[] = [];
 
-  async create(documentContent: DocumentContent): Promise<{ id: string }> {
+  async create(
+    documentContent: DocumentContent,
+  ): Promise<{ id: UniqueEntityID }> {
     this.items.push(documentContent);
 
-    return { id: documentContent.id.toString() };
+    return { id: documentContent.id };
   }
 
   async update(documentContent: DocumentContent): Promise<void> {

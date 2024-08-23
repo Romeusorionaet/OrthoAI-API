@@ -3,6 +3,7 @@ import { SaveDocumentContentUseCase } from "./save-document-content";
 import { ExtractContentFromFile } from "@/infra/extract-content/extract-content-from-file";
 import path from "node:path";
 import * as fs from "fs";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 
 let inMemoryDocumentContentRepository: InMemoryDocumentContentRepository;
 let extractContentFromFile: ExtractContentFromFile;
@@ -38,9 +39,7 @@ describe("Save document content", () => {
     });
 
     expect(result.isRight()).toBe(true);
-    expect(result.value).toEqual(
-      expect.objectContaining({ id: expect.any(String) }),
-    );
+    expect(result.value?.id).toBeInstanceOf(UniqueEntityID);
     expect(inMemoryDocumentContentRepository.items).toHaveLength(1);
     expect(inMemoryDocumentContentRepository.items[0]).toEqual(
       expect.objectContaining({
@@ -67,9 +66,7 @@ describe("Save document content", () => {
     });
 
     expect(result.isRight()).toBe(true);
-    expect(result.value).toEqual(
-      expect.objectContaining({ id: expect.any(String) }),
-    );
+    expect(result.value?.id).toBeInstanceOf(UniqueEntityID);
     expect(inMemoryDocumentContentRepository.items).toHaveLength(1);
     expect(inMemoryDocumentContentRepository.items[0]).toEqual(
       expect.objectContaining({
@@ -98,9 +95,7 @@ describe("Save document content", () => {
     // console.log(inMemoryDocumentContentRepository.items[0], "==========");
 
     expect(result.isRight()).toBe(true);
-    expect(result.value).toEqual(
-      expect.objectContaining({ id: expect.any(String) }),
-    );
+    expect(result.value?.id).toBeInstanceOf(UniqueEntityID);
     expect(inMemoryDocumentContentRepository.items).toHaveLength(1);
     expect(inMemoryDocumentContentRepository.items[0]).toEqual(
       expect.objectContaining({

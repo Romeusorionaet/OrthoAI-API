@@ -4,10 +4,10 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 
 export interface DocumentContentProps {
   originalDocument: string;
-  newDocument?: string;
-  rules?: string;
-  evaluation?: string;
-  comment?: string;
+  newDocument?: string | null;
+  rules?: string | null;
+  evaluation?: string | null;
+  comment?: string | null;
   createdAt: Date | null;
 }
 

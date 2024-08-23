@@ -3,13 +3,14 @@ import { Either, right } from "@/core/either";
 import { DocumentContentRepository } from "../repositories/document-content-repository";
 import { DocumentContent } from "../../enterprise/entities/document-content";
 import { ExtractContentFromFileRepository } from "../extract-content-from-file/extract-content-from-file-repository";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 
 interface SaveDocumentContentUseCaseRequest {
   mimetype: string;
   fileBuffer: Buffer;
 }
 
-type SaveDocumentContentUseCaseResponse = Either<null, { id: string }>;
+type SaveDocumentContentUseCaseResponse = Either<null, { id: UniqueEntityID }>;
 
 @Injectable()
 export class SaveDocumentContentUseCase {
