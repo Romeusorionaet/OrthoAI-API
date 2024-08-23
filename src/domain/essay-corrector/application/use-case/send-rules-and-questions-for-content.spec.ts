@@ -27,7 +27,7 @@ describe("Send rules and questions for content", () => {
 
   test("should be able save rules and questions for document content and get a new content in document", async () => {
     const documentContent = makeDocumentContent(
-      {},
+      { originalDocument: "lorem fake text..." },
       new UniqueEntityID("document-01"),
     );
 
@@ -50,14 +50,18 @@ describe("Send rules and questions for content", () => {
       expect.objectContaining({
         id: new UniqueEntityID("document-01"),
         rules: expect.stringContaining("rule-01,rule-02,rule-03"),
-        newDocument: expect.stringContaining(String()),
+        newDocument: "Conteúdo corrigido: lorem fake text...",
+        evaluation: "4",
+        comment: "Comentário gerado...",
       }),
     );
 
     expect(inMemoryQuizQuestionRepository.items[0]).toEqual(
       expect.objectContaining({
         documentContentId: documentContent.id.toString(),
-        quiz: expect.stringContaining(String()),
+        quiz: expect.stringContaining(
+          "['question-01: response-01', 'question-02: response-02', 'question-03: response-03']",
+        ),
       }),
     );
   });

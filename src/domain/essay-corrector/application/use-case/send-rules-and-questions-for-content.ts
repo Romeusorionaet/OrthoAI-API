@@ -52,6 +52,7 @@ export class SendRulesAndQuestionsForContentUseCase {
       rules,
       newDocument: resultCompletion.correctedContent,
       evaluation: resultCompletion.evaluation,
+      comment: resultCompletion.comment,
     });
 
     const quizQuestion = QuizQuestion.create({

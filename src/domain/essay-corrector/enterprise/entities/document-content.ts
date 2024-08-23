@@ -7,6 +7,7 @@ export interface DocumentContentProps {
   newDocument?: string;
   rules?: string;
   evaluation?: string;
+  comment?: string;
   createdAt: Date | null;
 }
 
@@ -25,6 +26,10 @@ export class DocumentContent extends Entity<DocumentContentProps> {
 
   get evaluation() {
     return this.props.evaluation;
+  }
+
+  get comment() {
+    return this.props.comment;
   }
 
   get createdAt() {

@@ -8,6 +8,7 @@ export interface ResultCompletionProps {
   correctedContent: string;
   evaluation: string;
   questionVerification: string;
+  comment: string;
 }
 
 export abstract class TextGenerationServiceRepository {
