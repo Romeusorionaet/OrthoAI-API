@@ -7,4 +7,16 @@ export class InMemoryQuizQuestionRepository implements QuizQuestionRepository {
   async create(quizQuestion: QuizQuestion): Promise<void> {
     this.items.push(quizQuestion);
   }
+
+  async findByDocumentId(documentId: string): Promise<QuizQuestion | null> {
+    const quizQuestion = this.items.find(
+      (item) => item.documentContentId.toString() === documentId,
+    );
+
+    if (!quizQuestion) {
+      return null;
+    }
+
+    return quizQuestion;
+  }
 }

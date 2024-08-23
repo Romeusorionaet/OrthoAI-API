@@ -56,7 +56,7 @@ export class SendRulesAndQuestionsForContentUseCase {
     });
 
     const quizQuestion = QuizQuestion.create({
-      documentContentId: updatedDocument.id.toString(),
+      documentContentId: updatedDocument.id,
       quiz: resultCompletion.questionVerification,
     });
 
