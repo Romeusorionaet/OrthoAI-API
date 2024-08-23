@@ -11,8 +11,10 @@ model DocumentContent {
   id                String   @id @unique @default(uuid())
   original_document String   @db.Text
   new_document      String?  @db.Text
-  roles             String   @db.Text
-  createdAt         DateTime @default(now()) @map("created_at")
+  rules             String?  @db.Text
+  evaluation        String?
+  comment           String?  @db.Text
+  created_at        DateTime @default(now())
 
   quiz_questions QuizQuestions[]
 
