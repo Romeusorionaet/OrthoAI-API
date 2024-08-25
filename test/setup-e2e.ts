@@ -7,29 +7,34 @@ config({ path: ".env", override: true });
 
 const prisma = new PrismaClient();
 
-function generateDatabaseURL(schema: string) {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("Please provide a DATABASE_URL environment variable.");
-  }
-
-  const url = new URL(process.env.DATABASE_URL);
-
-  url.searchParams.set("schema", schema);
-
-  return url.toString();
+function generateDatabaseName() {
+  return `test_${randomUUID()}`;
 }
 
-const schema = randomUUID();
+const databaseName = generateDatabaseName();
 
 beforeAll(async () => {
-  const databaseURL = generateDatabaseURL(schema);
+  const databaseURL = new URL(process.env.DATABASE_URL!);
+  databaseURL.pathname = `/${databaseName}`;
+  process.env.DATABASE_URL = databaseURL.toString();
 
-  process.env.DATABASE_URL = databaseURL;
+  await prisma.$executeRawUnsafe(`CREATE DATABASE \`${databaseName}\``);
 
   execSync("npx prisma migrate deploy");
 });
 
 afterAll(async () => {
-  await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
   await prisma.$disconnect();
+
+  const cleanPrisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL!.replace(`/${databaseName}`, "/mysql"),
+      },
+    },
+  });
+
+  await cleanPrisma.$executeRawUnsafe(`DROP DATABASE \`${databaseName}\``);
+
+  await cleanPrisma.$disconnect();
 });
