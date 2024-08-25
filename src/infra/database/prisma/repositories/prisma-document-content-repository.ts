@@ -3,7 +3,9 @@ import { DocumentContent } from "@/domain/essay-corrector/enterprise/entities/do
 import { PrismaDocumentContentMapper } from "../mappers/prisma-document-content-mapper";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { PrismaService } from "../prisma.service";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class PrismaDocumentContentRepository
   implements DocumentContentRepository
 {
