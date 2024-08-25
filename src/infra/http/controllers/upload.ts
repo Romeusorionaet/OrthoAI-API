@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Controller,
+  HttpCode,
   MaxFileSizeValidator,
   ParseFilePipe,
   Post,
@@ -15,6 +16,7 @@ export class UploadController {
   constructor(private saveDocumentContentUseCase: SaveDocumentContentUseCase) {}
 
   @Post()
+  @HttpCode(201)
   @UseInterceptors(FileInterceptor("file"))
   async handle(
     @UploadedFile(
@@ -26,8 +28,10 @@ export class UploadController {
     )
     file: Express.Multer.File,
   ): Promise<{ documentContentId: string | BadRequestException }> {
+
     const allowedMimeTypes = [
       "application/pdf",
+      "image/png",
       "image/jpeg",
       "image/jpg",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
