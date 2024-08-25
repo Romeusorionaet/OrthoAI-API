@@ -5,16 +5,6 @@ import sharp from "sharp";
 import { Injectable } from "@nestjs/common";
 import { ExtractContentFromFileRepository } from "@/domain/essay-corrector/application/extract-content-from-file/extract-content-from-file-repository";
 
-async function preprocessImage(fileBuffer: Buffer): Promise<Buffer> {
-  return sharp(fileBuffer)
-    .resize(1200)
-    .grayscale()
-    .normalize()
-    .threshold(128)
-    .modulate({ brightness: 1.2, saturation: 1.0, lightness: 0.9 })
-    .toBuffer();
-}
-
 @Injectable()
 export class ExtractContentFromFile
   implements ExtractContentFromFileRepository
@@ -42,6 +32,16 @@ export class ExtractContentFromFile
   }
 
   async extractContentFromJPEGOrJPG(fileBuffer: any): Promise<string> {
+    function preprocessImage(fileBuffer: Buffer): Promise<Buffer> {
+      return sharp(fileBuffer)
+        .resize(1200)
+        .grayscale()
+        .normalize()
+        .threshold(128)
+        .modulate({ brightness: 1.2, saturation: 1.0, lightness: 0.9 })
+        .toBuffer();
+    }
+
     try {
       const preprocessedImage = await preprocessImage(fileBuffer);
 

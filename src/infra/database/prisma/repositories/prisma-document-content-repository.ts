@@ -1,22 +1,20 @@
 import { DocumentContentRepository } from "@/domain/essay-corrector/application/repositories/document-content-repository";
 import { DocumentContent } from "@/domain/essay-corrector/enterprise/entities/document-content";
-import { PrismaService } from "@/infra/services/prisma";
 import { PrismaDocumentContentMapper } from "../mappers/prisma-document-content-mapper";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
+import { PrismaService } from "../prisma.service";
 
 export class PrismaDocumentContentRepository
   implements DocumentContentRepository
 {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(
     documentContent: DocumentContent,
   ): Promise<{ id: UniqueEntityID }> {
-    const prisma = this.prismaService.getPrismaClient();
-
     const data = PrismaDocumentContentMapper.toPrisma(documentContent);
 
-    await prisma.documentContent.create({
+    await this.prisma.documentContent.create({
       data,
     });
 
