@@ -5,11 +5,11 @@ import {
   HttpCode,
   Post,
 } from "@nestjs/common";
-import { SendRulesAndQuestionsForContentUseCase } from "@/domain/essay-corrector/application/use-case/send-rules-and-questions-for-content";
 import { z } from "zod";
 import { ZodValidationPipe } from "../pipes/zod-validation-pipe";
 import { DocumentNotFoundError } from "@/domain/essay-corrector/application/use-case/errors/document-not-found-error";
 import { CompletionNotPossibleError } from "@/domain/essay-corrector/application/use-case/errors/completion-not-possible-error";
+import { ContentSubmissionUseCase } from "@/domain/essay-corrector/application/use-case/content-submission";
 
 const contentSubmissionBodySchema = z.object({
   id: z.string().uuid(),
@@ -23,10 +23,7 @@ type ContentSubmissionBodySchema = z.infer<typeof contentSubmissionBodySchema>;
 
 @Controller("/submit-content")
 export class ContentSubmissionController {
-  constructor(
-    // TODO change name of use case
-    private sendRulesAndQuestionsForContentUseCase: SendRulesAndQuestionsForContentUseCase,
-  ) {}
+  constructor(private contentSubmissionUseCase: ContentSubmissionUseCase) {}
 
   @Post()
   @HttpCode(201)
@@ -36,7 +33,7 @@ export class ContentSubmissionController {
   ): Promise<{ message: string }> {
     const { id, rules, questions } = body;
 
-    const result = await this.sendRulesAndQuestionsForContentUseCase.execute({
+    const result = await this.contentSubmissionUseCase.execute({
       id,
       rules: JSON.stringify(rules),
       questions,

@@ -1,16 +1,16 @@
 import { InMemoryDocumentContentRepository } from "test/repositories/in-memory-document-content-repository";
-import { SendRulesAndQuestionsForContentUseCase } from "./send-rules-and-questions-for-content";
 import { makeDocumentContent } from "test/factories/make-document-content";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { FakeOpenAIService } from "test/services/fake-open-ai-service";
 import { InMemoryQuizQuestionRepository } from "test/repositories/in-memory-quiz-question-repository";
+import { ContentSubmissionUseCase } from "./content-submission";
 
 let inMemoryDocumentContentRepository: InMemoryDocumentContentRepository;
 let fakeOpenAIService: FakeOpenAIService;
 let inMemoryQuizQuestionRepository: InMemoryQuizQuestionRepository;
-let sut: SendRulesAndQuestionsForContentUseCase;
+let sut: ContentSubmissionUseCase;
 
-describe("Send rules and questions for content", () => {
+describe("Content submission", () => {
   beforeEach(() => {
     inMemoryDocumentContentRepository = new InMemoryDocumentContentRepository();
 
@@ -18,7 +18,7 @@ describe("Send rules and questions for content", () => {
 
     inMemoryQuizQuestionRepository = new InMemoryQuizQuestionRepository();
 
-    sut = new SendRulesAndQuestionsForContentUseCase(
+    sut = new ContentSubmissionUseCase(
       inMemoryDocumentContentRepository,
       fakeOpenAIService,
       inMemoryQuizQuestionRepository,

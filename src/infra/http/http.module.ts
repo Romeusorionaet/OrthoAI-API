@@ -4,15 +4,12 @@ import { SaveDocumentContentUseCase } from "@/domain/essay-corrector/application
 import { ExtractContentModule } from "../extract-content/extract-content.module";
 import { DatabaseModule } from "../database/database.module";
 import { ContentSubmissionController } from "./controllers/content-submission";
-import { SendRulesAndQuestionsForContentUseCase } from "@/domain/essay-corrector/application/use-case/send-rules-and-questions-for-content";
 import { ServicesModule } from "../services/services.module";
+import { ContentSubmissionUseCase } from "@/domain/essay-corrector/application/use-case/content-submission";
 
 @Module({
   imports: [DatabaseModule, ExtractContentModule, ServicesModule],
   controllers: [UploadController, ContentSubmissionController],
-  providers: [
-    SaveDocumentContentUseCase,
-    SendRulesAndQuestionsForContentUseCase,
-  ],
+  providers: [SaveDocumentContentUseCase, ContentSubmissionUseCase],
 })
 export class HttpModule {}

@@ -7,19 +7,19 @@ import { CompletionNotPossibleError } from "./errors/completion-not-possible-err
 import { QuizQuestionRepository } from "../repositories/quiz-question-repository";
 import { QuizQuestion } from "../../enterprise/entities/quiz-questions";
 
-interface SendRulesAndQuestionsForContentUseCaseRequest {
+interface ContentSubmissionUseCaseRequest {
   id: string;
   rules: string;
   questions: string;
 }
 
-type SendRulesAndQuestionsForContentUseCaseResponse = Either<
+type ContentSubmissionUseCaseResponse = Either<
   DocumentNotFoundError | CompletionNotPossibleError,
   object
 >;
 
 @Injectable()
-export class SendRulesAndQuestionsForContentUseCase {
+export class ContentSubmissionUseCase {
   constructor(
     private documentContentRepository: DocumentContentRepository,
     private textGenerationServiceRepository: TextGenerationServiceRepository,
@@ -30,7 +30,7 @@ export class SendRulesAndQuestionsForContentUseCase {
     id,
     rules,
     questions,
-  }: SendRulesAndQuestionsForContentUseCaseRequest): Promise<SendRulesAndQuestionsForContentUseCaseResponse> {
+  }: ContentSubmissionUseCaseRequest): Promise<ContentSubmissionUseCaseResponse> {
     const documentContent = await this.documentContentRepository.findById(id);
 
     if (!documentContent) {
