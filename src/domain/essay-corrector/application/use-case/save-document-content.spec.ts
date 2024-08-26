@@ -78,7 +78,7 @@ describe("Save document content", () => {
   test("should be able extract content from file image image, save and return an id", async () => {
     const filePath = path.resolve(
       __dirname,
-      "../../../../../test/fixtures/test-image-content.png",
+      "../../../../../test/fixtures/test-ortho-ai.png",
     );
 
     /** Title of the content into file 'test-ortho-ai.docx: 'O que é um text? */

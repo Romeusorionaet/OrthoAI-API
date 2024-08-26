@@ -57,7 +57,7 @@ export class SendRulesAndQuestionsForContentUseCase {
 
     const quizQuestion = QuizQuestion.create({
       documentContentId: updatedDocument.id,
-      quiz: resultCompletion.questionVerification,
+      quiz: JSON.stringify(resultCompletion.questionVerification),
     });
 
     await this.documentContentRepository.update(updatedDocument);
