@@ -28,7 +28,6 @@ export class UploadController {
     )
     file: Express.Multer.File,
   ): Promise<{ documentContentId: string | BadRequestException }> {
-
     const allowedMimeTypes = [
       "application/pdf",
       "image/png",

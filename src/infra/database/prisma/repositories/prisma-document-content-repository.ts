@@ -24,10 +24,29 @@ export class PrismaDocumentContentRepository
   }
 
   async update(documentContent: DocumentContent): Promise<void> {
-    throw new Error("Method not implemented.");
+    const data = PrismaDocumentContentMapper.toPrisma(documentContent);
+
+    await this.prisma.documentContent.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    });
   }
 
   async findById(id: string): Promise<DocumentContent | null> {
-    throw new Error("Method not implemented.");
+    const data = await this.prisma.documentContent.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!data) {
+      return null;
+    }
+
+    const documentContent = PrismaDocumentContentMapper.toDomain(data);
+
+    return documentContent;
   }
 }
