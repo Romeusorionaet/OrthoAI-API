@@ -40,14 +40,14 @@ export class ContentSubmissionController {
     });
 
     if (result.isLeft()) {
-      const error = result.value;
+      const err = result.value;
 
-      switch (error.constructor) {
+      switch (err.constructor) {
         case DocumentNotFoundError:
         case CompletionNotPossibleError:
-          throw new BadRequestException(error.message);
+          throw new BadRequestException(err.message);
         default:
-          throw new BadRequestException(error.message);
+          throw new BadRequestException(err.message);
       }
     }
 

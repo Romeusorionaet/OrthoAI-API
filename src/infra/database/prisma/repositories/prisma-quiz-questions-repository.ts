@@ -17,6 +17,16 @@ export class PrismaQuizQuestionsRepository implements QuizQuestionRepository {
   }
 
   async findByDocumentId(documentId: string): Promise<QuizQuestion | null> {
-    throw new Error("Method not implemented.");
+    const result = await this.prisma.quizQuestions.findFirst({
+      where: { document_content_id: documentId },
+    });
+
+    if (!result) {
+      return null;
+    }
+
+    const quizQuestion = PrismaQuizQuestionsMapper.toDomain(result);
+
+    return quizQuestion;
   }
 }
