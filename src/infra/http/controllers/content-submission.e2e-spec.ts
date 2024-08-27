@@ -40,7 +40,7 @@ describe("Content submission (E2E)", () => {
     await app.init();
   });
 
-  test("[POST]] /submit-content", async () => {
+  test("[POST] /submit-content", async () => {
     const documentContent = await documentContentFactory.makeDocumentContent();
 
     const response = await request(app.getHttpServer())

@@ -21,7 +21,7 @@ describe("Upload document file (E2E)", () => {
     await app.init();
   });
 
-  test("[POST]] /upload-file (test with docx file)", async () => {
+  test("[POST] /upload-file (test with docx file)", async () => {
     const filePath = path.resolve(
       __dirname,
       "../../../../test/fixtures/test-ortho-ai.docx",
@@ -44,7 +44,7 @@ describe("Upload document file (E2E)", () => {
     expect(documentContentOnDatabase).toBeTruthy();
   });
 
-  test("[POST]] /upload-file (test with pdf file)", async () => {
+  test("[POST] /upload-file (test with pdf file)", async () => {
     const filePath = path.resolve(
       __dirname,
       "../../../../test/fixtures/test-ortho-ai.pdf",
@@ -67,7 +67,7 @@ describe("Upload document file (E2E)", () => {
     expect(documentContentOnDatabase).toBeTruthy();
   });
 
-  test("[POST]] /upload-file (test with image file)", async () => {
+  test("[POST] /upload-file (test with image file)", async () => {
     const filePath = path.resolve(
       __dirname,
       "../../../../test/fixtures/test-ortho-ai.png",
