@@ -23,9 +23,9 @@ describe("Content submission (E2E)", () => {
           correctedContent: "Conteúdo corrigido de exemplo.",
           evaluation: "4",
           questionVerification: [
-            { "1": "Pergunta: Resposta 1." },
-            { "2": "Pergunta: Resposta 2." },
-            { "3": "Pergunta: Resposta 3." },
+            "Pergunta? Resposta 1.",
+            "Pergunta? Resposta 2.",
+            "Pergunta? Resposta 3.",
           ],
           comment: "Comentário resumido sobre o assunto.",
         }),
@@ -48,7 +48,7 @@ describe("Content submission (E2E)", () => {
       .send({
         id: documentContent.id.toString(),
         rules: ["1- first rule", "2- second rule", "3- third rule"],
-        questions: "1- Pergunta 1? 2- Pergunta 2? 3- Pergunta 3?",
+        questions: ["1- Pergunta 1? 2- Pergunta 2? 3- Pergunta 3?"],
       });
 
     expect(response.statusCode).toBe(201);
@@ -80,9 +80,9 @@ describe("Content submission (E2E)", () => {
     expect(quizQuestionsOnDatabase).toEqual(
       expect.objectContaining({
         quiz: JSON.stringify([
-          { "1": "Pergunta: Resposta 1." },
-          { "2": "Pergunta: Resposta 2." },
-          { "3": "Pergunta: Resposta 3." },
+          "Pergunta? Resposta 1.",
+          "Pergunta? Resposta 2.",
+          "Pergunta? Resposta 3.",
         ]),
       }),
     );

@@ -14,7 +14,7 @@ import { ContentSubmissionUseCase } from "@/domain/essay-corrector/application/u
 const contentSubmissionBodySchema = z.object({
   id: z.string().uuid(),
   rules: z.array(z.string()),
-  questions: z.string(),
+  questions: z.array(z.string()),
 });
 
 const bodyValidationPipe = new ZodValidationPipe(contentSubmissionBodySchema);
@@ -36,7 +36,7 @@ export class ContentSubmissionController {
     const result = await this.contentSubmissionUseCase.execute({
       id,
       rules: JSON.stringify(rules),
-      questions,
+      questions: JSON.stringify(questions),
     });
 
     if (result.isLeft()) {

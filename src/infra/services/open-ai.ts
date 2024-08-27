@@ -32,6 +32,7 @@ export class OpenAIService implements TextGenerationServiceRepository {
         - Corrija o conteúdo fornecido e atribua uma nota de 0 a 5 com base nas regras fornecidas.
         - Mantenha a formatação original do conteúdo, incluindo espaçamentos e quebras de linha. 
           Não remova parágrafos ou quebras de linha.
+        - Em caso do conteúdo houver título, mantenha esse título na correção.
 
       2. **Verificação de Questões:**
         - Se houver questões fornecidas, responda de forma precisa e resumida, incluindo apenas o essencial.
@@ -54,9 +55,9 @@ export class OpenAIService implements TextGenerationServiceRepository {
         "correctedContent": "Aqui vai o conteúdo corrigido.",
         "evaluation": "Nota de 0 a 5.",
         "questionVerification": [
-          {"1": "Pergunta: Resposta."},
-          {"2": "Pergunta: Resposta."},
-          {"3": "Pergunta: Resposta."}
+          "Pergunta? Resposta.",
+          "Pergunta? Resposta.",
+          "Pergunta? Resposta."
         ],
         "comment": "Aqui vai o comentário resumido sobre o assunto."
       }
@@ -75,7 +76,8 @@ export class OpenAIService implements TextGenerationServiceRepository {
         return null;
       }
 
-      const resultObject: ResultCompletionProps | null = null;
+      const resultObject: ResultCompletionProps | null =
+        JSON.parse(resultContent);
 
       return resultObject;
     } catch (err) {
