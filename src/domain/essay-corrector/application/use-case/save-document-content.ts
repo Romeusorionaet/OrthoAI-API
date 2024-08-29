@@ -1,16 +1,20 @@
 import { Injectable } from "@nestjs/common";
-import { Either, right } from "@/core/either";
+import { Either, left, right } from "@/core/either";
 import { DocumentContentRepository } from "../repositories/document-content-repository";
 import { DocumentContent } from "../../enterprise/entities/document-content";
 import { ExtractContentFromFileRepository } from "../extract-content-from-file/extract-content-from-file-repository";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
+import { ContentCouldNotExtractError } from "./errors/content-could-not-extract-error";
 
 interface SaveDocumentContentUseCaseRequest {
   mimetype: string;
   fileBuffer: Buffer;
 }
 
-type SaveDocumentContentUseCaseResponse = Either<null, { id: UniqueEntityID }>;
+type SaveDocumentContentUseCaseResponse = Either<
+  ContentCouldNotExtractError,
+  { id: UniqueEntityID }
+>;
 
 @Injectable()
 export class SaveDocumentContentUseCase {
@@ -51,6 +55,10 @@ export class SaveDocumentContentUseCase {
         await this.extractContentFromFileRepository.extractContentFromJPEGOrJPG(
           fileBuffer,
         );
+    }
+
+    if (extractedContent === "") {
+      return left(new ContentCouldNotExtractError());
     }
 
     const content = DocumentContent.create({

@@ -1,6 +1,6 @@
 import Tesseract from "tesseract.js";
 import mammoth from "mammoth";
-import PDFParser from "pdf2json";
+import pdf from "pdf-parse";
 import sharp from "sharp";
 import { Injectable } from "@nestjs/common";
 import { ExtractContentFromFileRepository } from "@/domain/essay-corrector/application/extract-content-from-file/extract-content-from-file-repository";
@@ -10,20 +10,14 @@ export class ExtractContentFromFile
   implements ExtractContentFromFileRepository
 {
   async extractContentFromPDF(fileBuffer: any): Promise<string> {
-    const result = await new Promise<string>((resolve, reject) => {
-      const pdfParser = new PDFParser();
+    try {
+      const data = await pdf(fileBuffer);
 
-      pdfParser.on("pdfParser_dataError", (err) => reject(err.parserError));
-
-      pdfParser.on("pdfParser_dataReady", () => {
-        const textContent = pdfParser.getRawTextContent();
-        resolve(textContent);
-      });
-
-      pdfParser.parseBuffer(fileBuffer);
-    });
-
-    return result;
+      return data.text;
+    } catch (err) {
+      console.error("Erro ao processar o PDF:", err);
+      return "";
+    }
   }
 
   async extractContentFromDOCX(fileBuffer: any): Promise<string> {

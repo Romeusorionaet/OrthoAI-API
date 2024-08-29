@@ -39,7 +39,9 @@ describe("Save document content", () => {
     });
 
     expect(result.isRight()).toBe(true);
-    expect(result.value?.id).toBeInstanceOf(UniqueEntityID);
+    if (result.isRight()) {
+      expect(result.value.id).toBeInstanceOf(UniqueEntityID);
+    }
     expect(inMemoryDocumentContentRepository.items).toHaveLength(1);
     expect(inMemoryDocumentContentRepository.items[0]).toEqual(
       expect.objectContaining({
@@ -54,8 +56,6 @@ describe("Save document content", () => {
       "../../../../../test/fixtures/test-ortho-ai.pdf",
     );
 
-    /** Title of the content into file 'test-ortho-ai.docx: 'A Exploração do Trabalho Infantil no Brasil...' */
-
     const fileBuffer = fs.readFileSync(filePath);
 
     const mimetype = "application/pdf";
@@ -66,7 +66,9 @@ describe("Save document content", () => {
     });
 
     expect(result.isRight()).toBe(true);
-    expect(result.value?.id).toBeInstanceOf(UniqueEntityID);
+    if (result.isRight()) {
+      expect(result.value.id).toBeInstanceOf(UniqueEntityID);
+    }
     expect(inMemoryDocumentContentRepository.items).toHaveLength(1);
     expect(inMemoryDocumentContentRepository.items[0]).toEqual(
       expect.objectContaining({
@@ -92,10 +94,10 @@ describe("Save document content", () => {
       mimetype,
     });
 
-    // console.log(inMemoryDocumentContentRepository.items[0], "==========");
-
     expect(result.isRight()).toBe(true);
-    expect(result.value?.id).toBeInstanceOf(UniqueEntityID);
+    if (result.isRight()) {
+      expect(result.value.id).toBeInstanceOf(UniqueEntityID);
+    }
     expect(inMemoryDocumentContentRepository.items).toHaveLength(1);
     expect(inMemoryDocumentContentRepository.items[0]).toEqual(
       expect.objectContaining({
