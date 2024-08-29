@@ -10,6 +10,7 @@ import {
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { SaveDocumentContentUseCase } from "@/domain/essay-corrector/application/use-case/save-document-content";
+import { ContentCouldNotExtractError } from "@/domain/essay-corrector/application/use-case/errors/content-could-not-extract-error";
 
 @Controller("/upload-file")
 export class UploadController {
@@ -51,6 +52,17 @@ export class UploadController {
       fileBuffer,
       mimetype,
     });
+
+    if (result.isLeft()) {
+      const err = result.value;
+
+      switch (err.constructor) {
+        case ContentCouldNotExtractError:
+          throw new BadRequestException(err.message);
+        default:
+          throw new BadRequestException(err.message);
+      }
+    }
 
     if (!result.value) {
       throw new BadRequestException();
