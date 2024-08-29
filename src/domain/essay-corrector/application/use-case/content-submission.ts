@@ -6,6 +6,7 @@ import { TextGenerationServiceRepository } from "../text-generation-service/text
 import { CompletionNotPossibleError } from "./errors/completion-not-possible-error";
 import { QuizQuestionRepository } from "../repositories/quiz-question-repository";
 import { QuizQuestion } from "../../enterprise/entities/quiz-questions";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 
 interface ContentSubmissionUseCaseRequest {
   id: string;
@@ -56,7 +57,7 @@ export class ContentSubmissionUseCase {
     });
 
     const quizQuestion = QuizQuestion.create({
-      documentContentId: updatedDocument.id,
+      documentContentId: new UniqueEntityID(id),
       quiz: JSON.stringify(resultCompletion.questionVerification),
     });
 

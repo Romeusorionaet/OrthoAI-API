@@ -11,8 +11,11 @@ export class FakeOpenAIService implements TextGenerationServiceRepository {
     const fakeResult = {
       correctedContent: `Conteúdo corrigido: ${content}`,
       evaluation: "4",
-      questionVerification:
-        "['question-01: response-01', 'question-02: response-02', 'question-03: response-03']",
+      questionVerification: [
+        "question-01: response-01",
+        "question-02: response-02",
+        "question-03: response-03",
+      ],
       comment: "Comentário gerado...",
     };
 

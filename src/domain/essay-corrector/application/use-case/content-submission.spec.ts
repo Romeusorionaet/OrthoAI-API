@@ -60,7 +60,7 @@ describe("Content submission", () => {
       expect.objectContaining({
         documentContentId: new UniqueEntityID("document-01"),
         quiz: expect.stringContaining(
-          "['question-01: response-01', 'question-02: response-02', 'question-03: response-03']",
+          '["question-01: response-01","question-02: response-02","question-03: response-03"]',
         ),
       }),
     );

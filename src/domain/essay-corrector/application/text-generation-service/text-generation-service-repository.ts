@@ -7,7 +7,7 @@ export interface CompletionProps {
 export interface ResultCompletionProps {
   correctedContent: string;
   evaluation: string;
-  questionVerification: string;
+  questionVerification: string[];
   comment: string;
 }
 
