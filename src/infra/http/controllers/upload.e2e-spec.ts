@@ -70,7 +70,7 @@ describe("Upload document file (E2E)", () => {
   test("[POST] /upload-file (test with image file)", async () => {
     const filePath = path.resolve(
       __dirname,
-      "../../../../test/fixtures/test-ortho-ai.png",
+      "../../../../test/fixtures/test-ortho-ai.jpg",
     );
 
     const response = await request(app.getHttpServer())
