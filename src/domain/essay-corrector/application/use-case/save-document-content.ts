@@ -52,7 +52,7 @@ export class SaveDocumentContentUseCase {
       mimetype === "image/png"
     ) {
       extractedContent =
-        await this.extractContentFromFileRepository.extractContentFromJPEGOrJPG(
+        await this.extractContentFromFileRepository.extractContentFromImage(
           fileBuffer,
         );
     }

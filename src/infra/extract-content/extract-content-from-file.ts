@@ -9,7 +9,7 @@ import { ExtractContentFromFileRepository } from "@/domain/essay-corrector/appli
 export class ExtractContentFromFile
   implements ExtractContentFromFileRepository
 {
-  async extractContentFromPDF(fileBuffer: any): Promise<string> {
+  async extractContentFromPDF(fileBuffer: Buffer): Promise<string> {
     try {
       const data = await pdf(fileBuffer);
 
@@ -20,12 +20,12 @@ export class ExtractContentFromFile
     }
   }
 
-  async extractContentFromDOCX(fileBuffer: any): Promise<string> {
+  async extractContentFromDOCX(fileBuffer: Buffer): Promise<string> {
     const result = await mammoth.extractRawText({ buffer: fileBuffer });
     return result.value;
   }
 
-  async extractContentFromJPEGOrJPG(fileBuffer: any): Promise<string> {
+  async extractContentFromImage(fileBuffer: Buffer): Promise<string> {
     function preprocessImage(fileBuffer: Buffer): Promise<Buffer> {
       return sharp(fileBuffer)
         .resize(1200)
@@ -44,8 +44,8 @@ export class ExtractContentFromFile
       } = await Tesseract.recognize(preprocessedImage, "eng+por");
 
       return text;
-    } catch (error) {
-      console.error("Error extracting text from image:", error);
+    } catch (err) {
+      console.error("Error extracting text from image:", err);
       throw new Error("Failed to extract text from image");
     }
   }
