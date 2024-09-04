@@ -40,16 +40,16 @@ describe("Fetch document content", () => {
       expect.objectContaining({
         documentsContent: expect.arrayContaining([
           expect.objectContaining({
-            id: new UniqueEntityID("document-01"),
+            id: "document-01",
             rules: "rule-01, rule-02, rule-03",
             evaluation: "5",
-            createdAt: expect.any(Date),
+            created_at: expect.any(Date),
           }),
           expect.objectContaining({
-            id: new UniqueEntityID("document-02"),
+            id: "document-02",
             rules: "rule-10, rule-20, rule-30",
             evaluation: "4",
-            createdAt: expect.any(Date),
+            created_at: expect.any(Date),
           }),
         ]),
       }),

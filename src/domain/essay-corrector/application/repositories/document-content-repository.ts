@@ -2,10 +2,10 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { DocumentContent } from "../../enterprise/entities/document-content";
 
 export interface ResponseFetchDocumentsProps {
-  id: UniqueEntityID;
-  createdAt: Date | null;
+  id: string;
   rules?: string | null;
   evaluation?: string | null;
+  created_at: Date | null;
 }
 
 export abstract class DocumentContentRepository {

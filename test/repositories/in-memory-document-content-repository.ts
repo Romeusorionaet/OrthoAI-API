@@ -43,8 +43,8 @@ export class InMemoryDocumentContentRepository
   async findMany(): Promise<ResponseFetchDocumentsProps[]> {
     const documentsContent = this.items.map((item) => {
       return {
-        id: item.id,
-        createdAt: item.createdAt,
+        id: item.id.toString(),
+        created_at: item.createdAt,
         rules: item.rules,
         evaluation: item.evaluation,
       };

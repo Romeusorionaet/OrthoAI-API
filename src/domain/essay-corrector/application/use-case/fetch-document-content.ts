@@ -4,10 +4,9 @@ import {
   DocumentContentRepository,
   ResponseFetchDocumentsProps,
 } from "../repositories/document-content-repository";
-import { DocumentNotFoundError } from "./errors/document-not-found-error";
 
 type FetchDocumentContentUseCaseResponse = Either<
-  DocumentNotFoundError,
+  null,
   { documentsContent: ResponseFetchDocumentsProps[] }
 >;
 

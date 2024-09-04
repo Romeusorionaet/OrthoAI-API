@@ -1,4 +1,7 @@
-import { DocumentContentRepository } from "@/domain/essay-corrector/application/repositories/document-content-repository";
+import {
+  DocumentContentRepository,
+  ResponseFetchDocumentsProps,
+} from "@/domain/essay-corrector/application/repositories/document-content-repository";
 import { DocumentContent } from "@/domain/essay-corrector/enterprise/entities/document-content";
 import { PrismaDocumentContentMapper } from "../mappers/prisma-document-content-mapper";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
@@ -48,5 +51,18 @@ export class PrismaDocumentContentRepository
     const documentContent = PrismaDocumentContentMapper.toDomain(data);
 
     return documentContent;
+  }
+
+  async findMany(): Promise<ResponseFetchDocumentsProps[]> {
+    const documentsContent = await this.prisma.documentContent.findMany({
+      select: {
+        id: true,
+        evaluation: true,
+        rules: true,
+        created_at: true,
+      },
+    });
+
+    return documentsContent;
   }
 }

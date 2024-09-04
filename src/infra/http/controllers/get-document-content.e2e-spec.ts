@@ -39,8 +39,6 @@ describe("Get document content (E2E)", () => {
       quiz: "['question-1', 'question-2', 'question-3']",
     });
 
-    console.log(documentContent, "=====");
-
     const response = await request(app.getHttpServer()).get(
       `/correction/${documentContent.id.toString()}`,
     );
