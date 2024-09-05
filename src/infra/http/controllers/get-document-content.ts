@@ -16,7 +16,7 @@ export class GetDocumentContentController {
 
   @Get()
   @HttpCode(200)
-  async handle(@Param("id") id: string): Promise<any> {
+  async handle(@Param("id") id: string) {
     const result = await this.getDocumentContentUseCase.execute({
       documentId: id,
     });

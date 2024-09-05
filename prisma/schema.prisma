@@ -26,7 +26,7 @@ model QuizQuestions {
   quiz String @db.Text
 
   document_content_id String
-  document_content    DocumentContent @relation(fields: [document_content_id], references: [id])
+  document_content    DocumentContent @relation(fields: [document_content_id], references: [id], onDelete: Cascade)
 
   @@map("quiz_questions")
 }
