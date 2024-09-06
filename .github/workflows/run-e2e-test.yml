@@ -12,14 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgres:
+      mysql:
         image: mysql:8.0
         ports:
           - 3306:3306
         env:
-          MYSQL_USERNAME: mysql
-          MYSQL_PASSWORD: root_password
-          MYSQL_DB: ortho_ai
+          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_DATABASE: ortho_ai
+          MYSQL_USER: mysql
+          MYSQL_PASSWORD: docker
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
@@ -29,10 +30,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Create data directories
-        run: |
-          mkdir -p data/mysql
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -54,7 +51,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           WEB_HOST: ${{ secrets.WEB_HOST }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY}}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_ORGANIZATION_ID: ${{ secrets.OPENAI_ORGANIZATION_ID }}
           OPENAI_PROJECT_ID: ${{ secrets.OPENAI_PROJECT_ID }}
           RUST_BACKTRACE: 1
