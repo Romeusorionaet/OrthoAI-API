@@ -1,0 +1,31 @@
+name: Run Unit Tests
+
+on: [pull_request, push]
+
+jobs:
+  run-unit-tests:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          WEB_HOST: ${{ secrets.WEB_HOST }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY}}
+          OPENAI_ORGANIZATION_ID: ${{ secrets.OPENAI_ORGANIZATION_ID }}
+          OPENAI_PROJECT_ID: ${{ secrets.OPENAI_PROJECT_ID }}
+          RUST_BACKTRACE: 1
