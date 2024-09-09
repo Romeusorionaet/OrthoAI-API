@@ -13,11 +13,3 @@ services:
       MYSQL_PASSWORD: docker
     volumes:
       - ./data/mysql:/var/lib/mysql
-
-  cache: 
-    container_name: ortho-ai-cache
-    image: redis
-    ports:
-      - 6379:6379
-    volumes:
-      - ./data/redis:/data
