@@ -7,7 +7,7 @@
   "scripts": {
     "build": "nest build",
     "start:dev": "nest start --watch",
-    "start": "node dist/src/infra/main.js",
+    "start": "nest start",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
