@@ -9,7 +9,7 @@
       "allowSyntheticDefaultImports": true,
       "incremental": true,
       "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": false,
+      "forceConsistentCasingInFileNames": true,
       "noFallthroughCasesInSwitch": false,
       "strict": true,
       "skipLibCheck": true,
@@ -17,10 +17,11 @@
         "@/*": ["src/*"]
       },
       "types": [
-      "vitest/globals", 
-      "multer"
+      "multer",
+      "node"
       ],
-      "outDir": "./dist"
+      "outDir": "./dist",
+      "typeRoots": ["./src/core/@types", "./node_modules/@types"]
     }
   }
   
