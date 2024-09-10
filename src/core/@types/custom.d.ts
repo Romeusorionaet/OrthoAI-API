@@ -1,5 +1,3 @@
-// src/@types/custom.d.ts
-
 declare module "multer" {
   import { RequestHandler } from "express";
 
