@@ -17,12 +17,12 @@
         "@/*": ["src/*"]
       },
       "types": [
-        "node", 
-        "express", 
-        "multer"
+        "node",
+        "express",
+        "multer" 
       ],
       "outDir": "./dist",
-      "typeRoots": ["./node_modules/@types", "./src/core/@types"]
+      "typeRoots": ["./node_modules/@types"]
     }
   }
   
