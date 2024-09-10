@@ -16,12 +16,9 @@
       "paths": {
         "@/*": ["src/*"]
       },
-      "types": [
-      "multer",
-      "node"
-      ],
+      "types": ["node", "express", "multer"],
       "outDir": "./dist",
-      "typeRoots": ["./src/core/@types", "./node_modules/@types"]
+      "typeRoots": ["./node_modules/@types", "./src/core/@types"]
     }
   }
   
