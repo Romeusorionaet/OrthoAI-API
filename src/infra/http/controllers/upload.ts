@@ -8,7 +8,6 @@ import {
   UploadedFile,
   UseInterceptors,
 } from "@nestjs/common";
-import type { Express } from "express";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { SaveDocumentContentUseCase } from "@/domain/essay-corrector/application/use-case/save-document-content";
 import { ContentCouldNotExtractError } from "@/domain/essay-corrector/application/use-case/errors/content-could-not-extract-error";
