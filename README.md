@@ -6,4 +6,4 @@
 
 - <a href="https://www.tldraw.com/ro/SUhtpHyuApO3d-bQTIDWV?d=v1103.-781.2113.2091.page" target="_blank">Visualização FullStack em Diagrama</a>
 
-- Mais informações  detalhadas acesse o Respositório da <a href="https://github.com/Romeusorionaet/OrthoAI-API" target="_blank">Aplicação WEB</a>
+- Mais informações  detalhadas acesse o Respositório da <a href="https://github.com/Romeusorionaet/OrthoAI" target="_blank">Aplicação WEB</a>
