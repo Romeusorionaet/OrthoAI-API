@@ -26,7 +26,8 @@ export class OpenAIService implements TextGenerationServiceRepository {
   }: CompletionProps): Promise<ResultCompletionProps | null> {
     const prompt = `
       Você é um assistente especializado em correção de conteúdos. Eu preciso que você corrija o conteúdo 
-      a seguir e forneça a avaliação em um formato JSON específico. Siga as instruções cuidadosamente:
+      a seguir e forneça a avaliação em um formato JSON específico. Siga as instruções cuidadosamente. 
+      É de extrema importância que devolva no formato JSON definido abaixo:
 
       1. **Correção e Avaliação:**
         - Corrija o conteúdo fornecido e atribua uma nota de 0 a 5 com base nas regras fornecidas.
@@ -37,7 +38,8 @@ export class OpenAIService implements TextGenerationServiceRepository {
       2. **Verificação de Questões:**
         - Se houver questões fornecidas, responda de forma precisa e resumida, incluindo apenas o essencial.
         - As respostas devem ser colocadas diretamente após cada pergunta, no formato que contenha 
-          a Pergunta e em seguida a Resposta.
+          a Pergunta e em seguida a Resposta. 
+        - No caso em que não houver perguntas, enviar um Array vazio.
 
       3. **Comentário Resumido:**
         - Escreva um comentário resumindo sobre o que foi corrigido e oque pode melhorar.
@@ -75,10 +77,30 @@ export class OpenAIService implements TextGenerationServiceRepository {
         return null;
       }
 
-      const resultObject: ResultCompletionProps | null =
-        JSON.parse(resultContent);
+      const trimmedResultContent = resultContent.trim();
 
-      return resultObject;
+      if (
+        trimmedResultContent.startsWith("{") &&
+        trimmedResultContent.endsWith("}")
+      ) {
+        try {
+          const resultObject: ResultCompletionProps | null =
+            JSON.parse(trimmedResultContent);
+
+          return resultObject;
+        } catch (parseError) {
+          console.error("Erro ao fazer o parse do JSON:", parseError);
+          console.log("Conteúdo recebido:", trimmedResultContent);
+
+          return null;
+        }
+      } else {
+        console.error(
+          "Resposta não está no formato JSON esperado:",
+          trimmedResultContent,
+        );
+        return null;
+      }
     } catch (err) {
       console.error("Error creating completion:", err);
       return null;
